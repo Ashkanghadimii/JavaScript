@@ -23,9 +23,16 @@
                 rating: {
                     starts: 4.5,
                     count: 87
+                },
+                fun: function function1() {
+                    console.log('function inside object');
                 }
+
             };
             console.log(product2.rating);
+            product2.fun()
+
+            console.log(JSON.stringify(product2))
 
         </script>
     </body>
