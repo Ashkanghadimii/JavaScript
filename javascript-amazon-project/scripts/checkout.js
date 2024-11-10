@@ -1,6 +1,6 @@
 import { cart } from "../cart.js";
 import { products } from '../data/products.js';
-import { formatCurrency } from "../utils/money.js";
+import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../cart.js";
 
 
