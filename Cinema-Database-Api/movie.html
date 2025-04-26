@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+        #loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #55aaff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 30px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .back-link {
+            color: #55aaff;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .movie-details {
+            display: flex;
+            gap: 20px;
+        }
+        .movie-details img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+        }
+        .movie-details .info {
+            flex: 1;
+        }
+        .movie-details input.title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 8px;
+            width: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .movie-details textarea.overview {
+            margin-bottom: 1rem;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 8px;
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+            font-family: Arial, sans-serif;
+        }
+        .movie-details input.field {
+            margin-bottom: 0.5rem;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 8px;
+            width: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .movie-details input.field::placeholder {
+            color: #cccccc;
+        }
+        .save-btn {
+            background-color: #55aaff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        .save-btn:hover {
+            background-color: #4488cc;
+        }
+        .error {
+            color: #ff5555;
+        }
+        @media (max-width: 768px) {
+            .movie-details {
+                flex-direction: column;
+            }
+            .movie-details img {
+                max-width: 100%;
+            }
+            .movie-details input.title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <div class="loader"></div>
+        <h1>Page is loading...</h1>
+    </div>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Movie List</a>
+        <div id="movie-details"></div>
+    </div>
+    <script>
+        const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+
+        async function fetchMovieDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = urlParams.get('id');
+            if (!movieId) {
+                document.getElementById('movie-details').innerHTML = '<p class="error">No movie ID provided.</p>';
+                return;
+            }
+
+            const userAddedMovies = JSON.parse(sessionStorage.getItem('userAddedMovies')) || {};
+            if (userAddedMovies[movieId]) {
+                displayMovieDetails(userAddedMovies[movieId]);
+                document.getElementById('loading').classList.add('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch('db.json');
+                if (!response.ok) throw new Error('Failed to fetch movies from db.json');
+                const data = await response.json();
+                const movie = data.movies.find(m => m.id == movieId);
+                if (!movie) {
+                    throw new Error('Movie not found in db.json');
+                }
+                const formattedMovie = {
+                    id: movie.id,
+                    title: movie.title,
+                    poster_path: movie.poster_path,
+                    release_date: movie.release_date,
+                    vote_average: movie.vote_average,
+                    genres: typeof movie.genres === 'string' ? movie.genres.split(',').map(g => ({ name: g.trim() })) : [],
+                    overview: movie.overview || '',
+                    runtime: movie.runtime || null
+                };
+                displayMovieDetails(formattedMovie);
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+                document.getElementById('movie-details').innerHTML = '<p class="error">Failed to load movie details. This movie may not exist in the database.</p>';
+            } finally {
+                document.getElementById('loading').classList.add('hidden');
+            }
+        }
+
+        function displayMovieDetails(movie) {
+            const movieDetails = document.getElementById('movie-details');
+            movieDetails.innerHTML = `
+                <div class="movie-details">
+                    <img src="${movie.poster_path ? IMAGE_BASE_URL + movie.poster_path : 'https://via.placeholder.com/500x750?text=No+Poster'}" alt="${movie.title}">
+                    <div class="info">
+                        <input type="text" class="title" value="${movie.title || 'N/A'}" placeholder="Enter movie title">
+                        <textarea class="overview" placeholder="Enter movie overview">${movie.overview || ''}</textarea>
+                        <input type="text" class="field" value="${movie.release_date || 'N/A'}" placeholder="Enter release date">
+                        <input type="text" class="field" value="${movie.vote_average ? movie.vote_average.toFixed(1) + '/10' : 'N/A'}" placeholder="Enter rating">
+                        <input type="text" class="field" value="${movie.runtime ? movie.runtime + ' minutes' : 'N/A'}" placeholder="Enter runtime">
+                        <input type="text" class="field" value="${movie.genres && movie.genres.length ? movie.genres.map(g => g.name).join(', ') : 'N/A'}" placeholder="Enter genres">
+                        <button class="save-btn" onclick="saveMovie(${movie.id})">Save Changes</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function saveMovie(movieId) {
+            const title = document.querySelector('.title').value.trim();
+            const overview = document.querySelector('.overview').value.trim();
+            const release_date = document.querySelectorAll('.field')[0].value.trim();
+            const vote_average = document.querySelectorAll('.field')[1].value.replace('/10', '').trim();
+            const runtime = document.querySelectorAll('.field')[2].value.replace(' minutes', '').trim();
+            const genres = document.querySelectorAll('.field')[3].value.trim();
+
+            if (!title) {
+                alert('Movie title is required.');
+                return;
+            }
+            if (vote_average !== 'N/A' && (isNaN(vote_average) || vote_average < 0 || vote_average > 10)) {
+                alert('Rating must be a number between 0 and 10.');
+                return;
+            }
+            if (runtime !== 'N/A' && (isNaN(runtime) || runtime < 0)) {
+                alert('Runtime must be a positive number.');
+                return;
+            }
+            if (release_date !== 'N/A' && !/^\d{4}-\d{2}-\d{2}$/.test(release_date)) {
+                alert('Release date must be in YYYY-MM-DD format.');
+                return;
+            }
+
+            const updatedMovie = {
+                id: movieId,
+                title,
+                overview,
+                release_date: release_date !== 'N/A' ? release_date : null,
+                vote_average: vote_average !== 'N/A' ? parseFloat(vote_average) : null,
+                runtime: runtime !== 'N/A' ? parseInt(runtime) : null,
+                genres: genres !== 'N/A' ? genres.split(',').map(g => ({ name: g.trim() })) : [],
+                poster_path: document.querySelector('img').src.includes('placeholder') ? null : document.querySelector('img').src.replace(IMAGE_BASE_URL, '')
+            };
+
+            try {
+                const response = await fetch(`http://localhost:8000/movies/${movieId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedMovie)
+                });
+                if (!response.ok) throw new Error('Failed to update movie in API');
+                const userAddedMovies = JSON.parse(sessionStorage.getItem('userAddedMovies')) || {};
+                userAddedMovies[movieId] = updatedMovie;
+                sessionStorage.setItem('userAddedMovies', JSON.stringify(userAddedMovies));
+                alert('Movie updated successfully.');
+            } catch (error) {
+                console.error('Error saving movie:', error);
+                const userAddedMovies = JSON.parse(sessionStorage.getItem('userAddedMovies')) || {};
+                userAddedMovies[movieId] = updatedMovie;
+                sessionStorage.setItem('userAddedMovies', JSON.stringify(userAddedMovies));
+                alert('Changes saved locally (API unavailable).');
+            }
+        }
+
+        fetchMovieDetails();
+    </script>
+</body>
+</html>
