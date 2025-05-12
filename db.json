@@ -1,80 +1,119 @@
 {
   "movies": [
     {
-      "id": "1197306",
-      "title": "A Working Man",
-      "overview": "Levon Cade left behind a decorated military career in the black ops to live a simple life working construction. But when his boss's daughter, who is like family to him, is taken by human traffickers, his search to bring her home uncovers a world of corruption far greater than he ever could have imagined.",
-      "release_date": "2025-03-26",
-      "vote_average": 6.2,
-      "runtime": 116,
-      "genres": [
-        {
-          "name": "Action"
-        },
-        {
-          "name": "Crime"
-        },
-        {
-          "name": "Thriller"
-        }
-      ],
-      "poster_path": null
-    },
-    {
-      "id": "324544",
-      "title": "In the Lost Lands",
-      "overview": "A queen sends the powerful and feared sorceress Gray Alys to the ghostly wilderness of the Lost Lands in search of a magical power, where she and her guide, the drifter Boyce, must outwit and outfight both man and demon.",
-      "release_date": "2025-02-27",
-      "vote_average": 6.279,
-      "genres": "N/A"
-    },
-    {
       "id": "950387",
-      "title": "A Minecraft Movie",
+      "title": "A Minecraft Movie2",
       "overview": "Four misfits find themselves struggling with ordinary problems when they are suddenly pulled through a mysterious portal into the Overworld: a bizarre, cubic wonderland that thrives on imagination. To get back home, they'll have to master this world while embarking on a magical quest with an unexpected, expert crafter, Steve.",
       "release_date": "2025-03-31",
-      "vote_average": 6.129,
-      "genres": "N/A"
+      "vote_average": 6.1,
+      "runtime": 120,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "fantasy"
+        }
+      ],
+      "poster_path": "./images/AMCM.png"
     },
     {
       "id": "822119",
-      "title": "Captain America: Brave New World",
+      "title": "Captain America: New World",
       "overview": "After meeting with newly elected U.S. President Thaddeus Ross, Sam finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.",
       "release_date": "2025-02-12",
-      "vote_average": 6.144,
-      "genres": "N/A"
+      "vote_average": 6.1,
+      "runtime": 100,
+      "genres": [
+        {
+          "name": "fantasy"
+        },
+        {
+          "name": "horror"
+        },
+        {
+          "name": "action"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "science fiction"
+        }
+      ],
+      "poster_path": "./images/CAmerica.jpg"
     },
     {
       "id": "1045938",
       "title": "G20",
       "overview": "After the G20 Summit is overtaken by terrorists, President Danielle Sutton must bring all her statecraft and military experience to defend her family and her fellow leaders.",
       "release_date": "2025-04-09",
-      "vote_average": 6.657,
-      "genres": "N/A"
+      "vote_average": 6.7,
+      "runtime": 87,
+      "genres": [
+        {
+          "name": "comedy"
+        },
+        {
+          "name": "musical"
+        },
+        {
+          "name": "fantasy"
+        },
+        {
+          "name": "epic"
+        }
+      ],
+      "poster_path": "./images/G20.jpg"
     },
     {
       "id": "1195506",
       "title": "Novocaine",
       "overview": "When the girl of his dreams is kidnapped, everyman Nate turns his inability to feel pain into an unexpected strength in his fight to get her back.",
       "release_date": "2025-03-12",
-      "vote_average": 6.868,
-      "genres": "N/A"
+      "vote_average": 6.9,
+      "runtime": 73,
+      "genres": "horror, action, adventure, crime",
+      "poster_path": "./images/Novacaine.jpg"
     },
     {
       "id": "1293286",
       "title": "Gunslingers",
       "overview": "When the most wanted man in America surfaces in a small Kentucky town, his violent history -- and a blood-thirsty mob seeking vengeance and a king’s ransom -- soon follow. As brothers face off against one another and bullets tear the town to shreds, this lightning-fast gunslinger makes his enemies pay the ultimate price for their greed.",
       "release_date": "2025-04-11",
-      "vote_average": 6.984,
-      "genres": "N/A"
+      "vote_average": 7,
+      "runtime": 108,
+      "genres": "crime, action, adventure, horror",
+      "poster_path": "./images/Gunslingers.jpg"
     },
     {
       "id": "1244944",
       "title": "The Woman in the Yard",
       "overview": "In the aftermath of her husband's death, widow Ramona's struggle to raise her two kids is hindered by the arrival of a mysterious woman with supernatural abilities.",
       "release_date": "2025-03-27",
-      "vote_average": 6.117,
-      "genres": "N/A"
+      "vote_average": 6.1,
+      "runtime": 80,
+      "genres": [
+        {
+          "name": "fantasy"
+        },
+        {
+          "name": "science fiction"
+        },
+        {
+          "name": "action"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "drama"
+        }
+      ],
+      "poster_path": "./images/TWITY.png"
     },
     {
       "id": "1233413",
@@ -82,47 +121,136 @@
       "overview": "Trying to leave their troubled lives behind, twin brothers return to their hometown to start again, only to discover that an even greater evil is waiting to welcome them back.",
       "release_date": "2025-04-16",
       "vote_average": 7.5,
-      "genres": "N/A"
+      "runtime": 87,
+      "genres": "crime, action, adventure, horror",
+      "poster_path": "./images/Sinners.png"
     },
     {
       "id": "615",
       "title": "The Passion of the Christ",
       "overview": "A graphic portrayal of the last twelve hours of Jesus of Nazareth's life.",
       "release_date": "2004-02-25",
-      "vote_average": 7.517,
-      "genres": "N/A"
+      "vote_average": 7.5,
+      "runtime": 81,
+      "genres": [
+        {
+          "name": "comedy"
+        },
+        {
+          "name": "drama"
+        },
+        {
+          "name": "history"
+        },
+        {
+          "name": "romance"
+        },
+        {
+          "name": "action"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "horror"
+        }
+      ],
+      "poster_path": "./images/TPotC.png"
     },
     {
       "id": "1312833",
       "title": "A Knight's War",
       "overview": "A fearless knight braves a deadly realm to save the Chosen One’s soul. Facing witches, demons, and brutal foes, he discovers her return could ignite chaos and doom humanity.",
       "release_date": "2025-02-07",
-      "vote_average": 5.107,
-      "genres": "N/A"
+      "vote_average": 5.1,
+      "runtime": 95,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "horror"
+        },
+        {
+          "name": "drama"
+        },
+        {
+          "name": "war"
+        }
+      ],
+      "poster_path": "./images/AKWAR.jpg"
     },
     {
       "id": "1353117",
       "title": "Home Sweet Home: Rebirth",
       "overview": "When a city is overrun with a demonically-possessed crowd, a cop must find the source of evil to save his family.",
       "release_date": "2025-03-20",
-      "vote_average": 6.841,
-      "genres": "N/A"
+      "vote_average": 6.8,
+      "runtime": 79,
+      "genres": [
+        {
+          "name": "drama"
+        },
+        {
+          "name": "romance"
+        },
+        {
+          "name": "comedy"
+        }
+      ],
+      "poster_path": "./images/HSHR.jpg"
     },
     {
       "id": "1241982",
       "title": "Moana 2",
       "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
       "release_date": "2024-11-21",
-      "vote_average": 7.082,
-      "genres": "N/A"
+      "vote_average": 7.1,
+      "runtime": 77,
+      "genres": [
+        {
+          "name": "fantasy"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "action"
+        }
+      ],
+      "poster_path": "./images/Moana2.jpg"
     },
     {
       "id": "1125899",
       "title": "Cleaner",
       "overview": "When a group of radical activists take over an energy company's annual gala, seizing 300 hostages, an ex-soldier turned window cleaner suspended 50 storeys up on the outside of the building must save those trapped inside, including her younger brother.",
       "release_date": "2025-02-19",
-      "vote_average": 6.586,
-      "genres": "N/A"
+      "vote_average": 6.6,
+      "runtime": 64,
+      "genres": [
+        {
+          "name": "comedy"
+        },
+        {
+          "name": "drama"
+        },
+        {
+          "name": "history"
+        },
+        {
+          "name": "romance"
+        },
+        {
+          "name": "action"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "horror"
+        }
+      ],
+      "poster_path": "./images/Cleaner.jpg"
     },
     {
       "id": "762509",
@@ -130,39 +258,105 @@
       "overview": "Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a royal bloodline. The chance meeting sets in motion an expansive journey of a group of misfits searching for their destiny.",
       "release_date": "2024-12-18",
       "vote_average": 7.4,
-      "genres": "N/A"
+      "runtime": 130,
+      "genres": [
+        {
+          "name": "fantasy"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "action"
+        }
+      ],
+      "poster_path": "./images/Mufasa.jpg"
     },
     {
       "id": "939243",
       "title": "Sonic the Hedgehog 3",
       "overview": "Sonic, Knuckles, and Tails reunite against a powerful new adversary, Shadow, a mysterious villain with powers unlike anything they have faced before. With their abilities outmatched in every way, Team Sonic must seek out an unlikely alliance in hopes of stopping Shadow and protecting the planet.",
       "release_date": "2024-12-19",
-      "vote_average": 7.733,
-      "genres": "N/A"
+      "vote_average": 7.7,
+      "runtime": 74,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "horror"
+        },
+        {
+          "name": "drama"
+        },
+        {
+          "name": "war"
+        }
+      ],
+      "poster_path": "./images/Sonic3.jpg"
     },
     {
       "id": "1373723",
       "title": "The Codes of War",
       "overview": "War stories about family, ethics and honor include the true story of two U.S. Marines who in a span of six seconds, must stand their ground to stop a suicide truck bomb, a Navy Corpsman who attempts to hold on to his humanity, and a WW2 soldier who gets separated from his squad and is forced to re-evaluate his code.",
       "release_date": "2025-03-20",
-      "vote_average": 6.186,
-      "genres": "N/A"
+      "vote_average": 6.2,
+      "runtime": 83,
+      "genres": [
+        {
+          "name": "drama"
+        },
+        {
+          "name": "action"
+        },
+        {
+          "name": "comedy"
+        }
+      ],
+      "poster_path": "./images/TCOW.jpg"
     },
     {
       "id": "696506",
       "title": "Mickey 17",
       "overview": "Unlikely hero Mickey Barnes finds himself in the extraordinary circumstance of working for an employer who demands the ultimate commitment to the job… to die, for a living.",
       "release_date": "2025-02-28",
-      "vote_average": 6.907,
-      "genres": "N/A"
+      "vote_average": 6.9,
+      "runtime": 73,
+      "genres": [
+        {
+          "name": "fantasy"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "action"
+        }
+      ],
+      "poster_path": "./images/Mickey17.jpg"
     },
     {
       "id": "1229730",
       "title": "Carjackers",
       "overview": "By day, they're invisible—valets, hostesses, and bartenders at a luxury hotel. By night, they're the Carjackers, a crew of skilled drivers who track and rob wealthy clients on the road. As they plan their ultimate heist, the hotel director hires a ruthless hitman, to stop them at all costs. With danger closing in, can Nora, Zoe, Steve, and Prestance pull off their biggest score yet?",
       "release_date": "2025-03-27",
-      "vote_average": 6.136,
-      "genres": "N/A"
+      "vote_average": 6.1,
+      "runtime": 100,
+      "genres": [
+        {
+          "name": "drama"
+        },
+        {
+          "name": "action"
+        },
+        {
+          "name": "adventure"
+        },
+        {
+          "name": "horror"
+        }
+      ],
+      "poster_path": "./images/Carjackers.png"
     },
     {
       "id": "1403735",
@@ -170,21 +364,247 @@
       "overview": "Sonu Model, a renowned beautician from the old city, is forced to disguise himself as Laila, leading to a series of comedic, romantic, and action-packed events. Chaos ensues in this hilarious laugh riot",
       "release_date": "2025-02-14",
       "vote_average": 1,
-      "genres": "N/A"
-    },
-    {
-      "id": 1745654849014,
-      "title": "hkjdsahkj",
-      "release_date": "2013-01-01",
-      "vote_average": 9,
+      "runtime": 73,
       "genres": [
+        {
+          "name": "fantasy"
+        },
+        {
+          "name": "adventure"
+        },
         {
           "name": "action"
         }
       ],
-      "poster_path": null,
+      "poster_path": "./images/Laila.jpg"
+    },
+    {
+      "id": "1745846075056",
+      "title": "A working man",
+      "overview": "When the girl of his dreams is kidnapped, everyman Nate turns his inability to feel pain into an unexpected strength in his fight to get her back.",
+      "release_date": "2025-01-01",
+      "vote_average": 10,
+      "runtime": 83,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "drama"
+        },
+        {
+          "name": "horror"
+        }
+      ],
+      "poster_path": "./images/AWMan.jpg"
+    },
+    {
+      "id": "1745846717921",
+      "title": "Havoc",
+      "release_date": "2025-01-01",
+      "vote_average": 5.9,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "drama"
+        }
+      ],
+      "poster_path": "./images/Havoc.jpg",
+      "overview": "In a post-apocalyptic world, a group of survivors must navigate through the ruins of civilization while facing both external threats and their own inner demons.",
+      "runtime": 98
+    },
+    {
+      "id": "1746863200954",
+      "title": "Crank",
+      "release_date": "2006-01-01",
+      "vote_average": 7.2,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "drama"
+        }
+      ],
+      "poster_path": "./images/Crank.jpg",
+      "overview": "A terminally ill hitman seeks revenge on his former employers.",
+      "runtime": 115
+    },
+    {
+      "id": "1746863225899",
+      "title": "Red Notice",
+      "release_date": "2021-01-01",
+      "vote_average": 8,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "drama"
+        }
+      ],
+      "poster_path": "./images/RNotice.jpg",
+      "overview": "An Interpol agent tracks the world's most wanted art thief.",
+      "runtime": 97
+    },
+    {
+      "id": "1746863246538",
+      "title": "Hostel",
+      "release_date": "2005-01-01",
+      "vote_average": 6,
+      "genres": [
+        {
+          "name": "horror"
+        },
+        {
+          "name": "action"
+        }
+      ],
+      "poster_path": "./images/Hostel.jpg",
+      "overview": "A group of backpackers find themselves in a nightmare when they are kidnapped and",
+      "runtime": 120
+    },
+    {
+      "id": "1746863289394",
+      "title": "Scream VI",
+      "overview": "The survivors of a brutal massacre find themselves trapped in a remote cabin, where they must confront their darkest fears and the vengeful spirit that haunts them.",
+      "release_date": "2023-01-01",
+      "vote_average": 10,
+      "runtime": 87,
+      "genres": [
+        {
+          "name": "horror"
+        },
+        {
+          "name": "action"
+        }
+      ],
+      "poster_path": "./images/ScreamVI.jpg"
+    },
+    {
+      "id": "1746863302746",
+      "title": "Scream",
+      "release_date": "2001-01-01",
+      "vote_average": 7.5,
+      "genres": [
+        {
+          "name": "horror"
+        },
+        {
+          "name": "action"
+        }
+      ],
+      "poster_path": "./images/Scream.jpg",
+      "overview": "A terminally ill hitman seeks revenge on his former employers.",
+      "runtime": 104
+    },
+    {
+      "id": "1746863321482",
+      "title": "Art of Love",
+      "release_date": "2024-01-01",
+      "vote_average": 5.7,
+      "genres": [
+        {
+          "name": "romance"
+        },
+        {
+          "name": "drama"
+        }
+      ],
+      "poster_path": "./images/AOL.jpg",
+      "overview": "A story of love and sacrifice unfolds as two strangers from different worlds collide.",
+      "runtime": 75
+    },
+    {
+      "id": "1746863350355",
+      "title": "Red 2",
+      "release_date": "2013-01-01",
+      "vote_average": 8,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "drama"
+        }
+      ],
+      "poster_path": "./images/Red2.jpg",
+      "overview": "The world's most dangerous criminals are recruited by the government to carry out black ops missions.",
+      "runtime": 103
+    },
+    {
+      "id": "1746863365802",
+      "title": "Red 1",
+      "release_date": "2006-01-01",
+      "vote_average": 6.5,
+      "genres": [
+        {
+          "name": "action"
+        },
+        {
+          "name": "drama"
+        }
+      ],
+      "poster_path": "./images/Red1.jpg",
+      "overview": "A retired CIA agent is drawn out of retirement to track down a missing person.",
+      "runtime": 96
+    },
+    {
+      "id": 1747045672372,
+      "title": "Heretic",
+      "release_date": "2024-01-01",
+      "vote_average": 7,
+      "genres": [
+        {
+          "name": "horror"
+        },
+        {
+          "name": "thriller"
+        }
+      ],
       "overview": "",
-      "runtime": null
+      "runtime": null,
+      "poster_path": "./images/Heretic.jpg"
+    }
+  ],
+  "users": [
+    {
+      "id": "1747039139145",
+      "name": "Ashkan",
+      "familyName": "Ghadimi",
+      "username": "ashkangh",
+      "email": "Ashkanghadimi23@gmail.com",
+      "password": "1234",
+      "role": "admin"
+    },
+    {
+      "id": "1747039761194",
+      "name": "user1",
+      "familyName": "user1",
+      "username": "user1",
+      "email": "user@gmail.com",
+      "password": "1234",
+      "role": "user"
+    },
+    {
+      "id": "1747042245782",
+      "name": "user2",
+      "familyName": "user2",
+      "username": "user2",
+      "email": "user2@gmail.com",
+      "password": "1234",
+      "role": "user"
+    },
+    {
+      "id": "1747043964377",
+      "name": "user8",
+      "familyName": "user8",
+      "username": "user8",
+      "email": "user8@gmail.com",
+      "password": "1234",
+      "role": "user"
     }
   ]
 }

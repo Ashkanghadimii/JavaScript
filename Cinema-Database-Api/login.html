@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+        #loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #55aaff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 30px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            display: none;
+        }
+        .form-container.active {
+            display: block;
+        }
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #3a3a3a;
+            color: #ffffff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .form-container input::placeholder {
+            color: #cccccc;
+        }
+        .form-container select {
+            cursor: pointer;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #55aaff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .form-container button:hover {
+            background-color: #4488cc;
+        }
+        .toggle-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .toggle-link a {
+            color: #55aaff;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .toggle-link a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: #ff5555;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        .success {
+            color: #55ff55;
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(85, 255, 85, 0.2);
+            border-radius: 4px;
+            border: 1px solid #55ff55;
+            display: none;
+            font-size: 0.9rem;
+            z-index: 10;
+            opacity: 1;
+        }
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 360px;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.6rem;
+                margin-top: 30px;
+            }
+            .form-container input,
+            .form-container select {
+                padding: 8px;
+                margin-bottom: 12px;
+                font-size: 0.95rem;
+            }
+            .form-container button {
+                padding: 8px;
+                font-size: 0.95rem;
+            }
+            .toggle-link a {
+                font-size: 0.95rem;
+            }
+            .error, .success {
+                font-size: 0.85rem;
+                padding: 8px;
+            }
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 10px;
+                max-width: 90%;
+            }
+            h1 {
+                font-size: 1.4rem;
+                margin-top: 20px;
+                margin-bottom: 15px;
+            }
+            .form-container input,
+            .form-container select {
+                padding: 7px;
+                margin-bottom: 10px;
+                font-size: 0.9rem;
+            }
+            .form-container button {
+                padding: 7px;
+                font-size: 0.9rem;
+            }
+            .toggle-link a {
+                font-size: 0.9rem;
+            }
+            .error, .success {
+                font-size: 0.8rem;
+                padding: 6px;
+            }
+            #loading .loader {
+                width: 50px;
+                height: 50px;
+                border-width: 6px;
+            }
+            #loading h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="hidden">
+        <div class="loader"></div>
+        <h1>Processing...</h1>
+    </div>
+    <div class="container">
+        <div id="login-form" class="form-container active">
+            <h1>Login</h1>
+            <p id="login-error" class="error"></p>
+            <input type="text" id="login-username" placeholder="Username" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button onclick="handleLogin()">Login</button>
+            <div class="toggle-link">
+                <a onclick="toggleForm('signup')">Don't have an account? Sign up</a>
+            </div>
+        </div>
+        <div id="signup-form" class="form-container">
+            <h1>Sign Up</h1>
+            <p id="signup-success" class="success" data-testid="signup-success"></p>
+            <p id="signup-error" class="error"></p>
+            <input type="text" id="signup-name" placeholder="Name" required>
+            <input type="text" id="signup-family-name" placeholder="Family Name" required>
+            <input type="text" id="signup-username" placeholder="Username" required>
+            <input type="email" id="signup-email" placeholder="Email" required>
+            <input type="password" id="signup-password" placeholder="Password" required>
+            <button onclick="handleSignup()">Sign Up</button>
+            <div class="toggle-link">
+                <a onclick="toggleForm('login')">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+            console.log('Showing loading spinner');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+            console.log('Hiding loading spinner');
+        }
+
+        function showError(formId, message) {
+            const errorElement = document.getElementById(`${formId}-error`);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            console.log(`Showing error: ${message}`);
+        }
+
+        function clearError(formId) {
+            const errorElement = document.getElementById(`${formId}-error`);
+            errorElement.textContent = '';
+            errorElement.style.display = 'none';
+            console.log(`Cleared error for ${formId}`);
+        }
+
+        function showSuccess(formId, message) {
+            const successElement = document.getElementById(`${formId}-success`);
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            console.log(`Showing success message: ${message}`);
+        }
+
+        function clearSuccess(formId) {
+            const successElement = document.getElementById(`${formId}-success`);
+            successElement.textContent = '';
+            successElement.style.display = 'none';
+            console.log(`Cleared success message for ${formId}`);
+        }
+
+        function toggleForm(formId) {
+            document.getElementById('login-form').classList.toggle('active', formId === 'login');
+            document.getElementById('signup-form').classList.toggle('active', formId === 'signup');
+            clearError('login');
+            clearError('signup');
+            clearSuccess('signup');
+            console.log(`Toggled to ${formId} form`);
+        }
+
+        async function handleSignup() {
+            const name = document.getElementById('signup-name').value.trim();
+            const familyName = document.getElementById('signup-family-name').value.trim();
+            const username = document.getElementById('signup-username').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value.trim();
+
+            clearSuccess('signup');
+            clearError('signup');
+            console.log('Starting signup process');
+
+            if (!name || !familyName || !username || !email || !password) {
+                showError('signup', 'All fields are required.');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('signup', 'Please enter a valid email address.');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now().toString(),
+                name,
+                familyName,
+                username,
+                email,
+                password,
+                role: 'user'
+            };
+
+            showLoading();
+            try {
+                console.log('Sending POST request to /users');
+                const response = await fetch('http://localhost:8000/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newUser)
+                });
+
+                console.log(`API response status: ${response.status}`);
+                if (!response.ok) {
+                    throw new Error('Failed to register user');
+                }
+
+                // Clear form inputs and show success message
+                document.getElementById('signup-form').querySelectorAll('input').forEach(input => input.value = '');
+                showSuccess('signup', 'Signup successful! Please login.');
+                
+                // Wait 5 seconds before toggling to login form
+                setTimeout(() => {
+                    console.log('Toggling to login form after 5 seconds');
+                    toggleForm('login');
+                }, 5000);
+            } catch (error) {
+                console.error('Error during signup:', error);
+                showError('signup', 'Failed to register user. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function handleLogin() {
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+
+            if (!username || !password) {
+                showError('login', 'Username and password are required.');
+                return;
+            }
+
+            showLoading();
+            try {
+                const response = await fetch('http://localhost:8000/users', {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Login service unavailable. Please try again later.');
+                    }
+                    throw new Error('Failed to fetch user data');
+                }
+
+                const users = await response.json();
+                const user = users.find(
+                    u => u.username === username && u.password === password
+                );
+
+                if (user) {
+                    sessionStorage.setItem('user', JSON.stringify({
+                        id: user.id,
+                        username: user.username,
+                        role: user.role,
+                        name: user.name,
+                        familyName: user.familyName,
+                        email: user.email
+                    }));
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error('Invalid username or password');
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                showError('login', error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+    </script>
+</body>
+</html>

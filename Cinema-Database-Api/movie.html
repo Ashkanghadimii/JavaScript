@@ -54,6 +54,7 @@
             text-decoration: none;
             display: inline-block;
             margin-bottom: 20px;
+            font-size: 1rem;
         }
         .back-link:hover {
             text-decoration: underline;
@@ -62,51 +63,26 @@
             display: flex;
             gap: 20px;
         }
-        .movie-details img {
-            width: 100%;
-            max-width: 300px;
+        .movie-poster {
+            width: 300px;
+            height: 450px;
+            object-fit: cover;
             border-radius: 8px;
+            border: 2px solid #3a3a3a;
         }
         .movie-details .info {
             flex: 1;
         }
-        .movie-details input.title {
+        .movie-details h1 {
             font-size: 2rem;
             margin-bottom: 1rem;
-            background-color: #2a2a2a;
-            color: #ffffff;
-            border: 1px solid #555;
-            border-radius: 4px;
-            padding: 8px;
-            width: 100%;
-            font-family: Arial, sans-serif;
         }
-        .movie-details textarea.overview {
-            margin-bottom: 1rem;
-            background-color: #2a2a2a;
-            color: #ffffff;
-            border: 1px solid #555;
-            border-radius: 4px;
-            padding: 8px;
-            width: 100%;
-            min-height: 100px;
-            resize: vertical;
-            font-family: Arial, sans-serif;
-        }
-        .movie-details input.field {
+        .movie-details p {
             margin-bottom: 0.5rem;
-            background-color: #2a2a2a;
-            color: #ffffff;
-            border: 1px solid #555;
-            border-radius: 4px;
-            padding: 8px;
-            width: 100%;
-            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            font-size: 1rem;
         }
-        .movie-details input.field::placeholder {
-            color: #cccccc;
-        }
-        .save-btn {
+        .edit-btn {
             background-color: #55aaff;
             color: #ffffff;
             border: none;
@@ -115,22 +91,65 @@
             cursor: pointer;
             font-size: 1rem;
             margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
         }
-        .save-btn:hover {
+        .edit-btn:hover {
             background-color: #4488cc;
         }
         .error {
             color: #ff5555;
+            font-size: 1rem;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+            .container {
+                padding: 15px;
+            }
             .movie-details {
                 flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
-            .movie-details img {
-                max-width: 100%;
+            .movie-poster {
+                width: 100%;
+                max-width: 400px;
+                height: auto;
+                max-height: 600px;
             }
-            .movie-details input.title {
+            .movie-details h1 {
+                font-size: 1.8rem;
+            }
+            .movie-details p {
+                font-size: 0.95rem;
+            }
+            .edit-btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .movie-poster {
+                max-width: 300px;
+                max-height: 450px;
+            }
+            .movie-details h1 {
                 font-size: 1.5rem;
+            }
+            .movie-details p {
+                font-size: 0.9rem;
+            }
+            .edit-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            .back-link {
+                font-size: 0.9rem;
+            }
+            .error {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -145,8 +164,6 @@
         <div id="movie-details"></div>
     </div>
     <script>
-        const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-
         async function fetchMovieDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             const movieId = urlParams.get('id');
@@ -163,22 +180,19 @@
             }
 
             try {
-                const response = await fetch('db.json');
-                if (!response.ok) throw new Error('Failed to fetch movies from db.json');
-                const data = await response.json();
-                const movie = data.movies.find(m => m.id == movieId);
-                if (!movie) {
-                    throw new Error('Movie not found in db.json');
-                }
+                const response = await fetch('http://localhost:8000/movies/' + movieId);
+                if (!response.ok) throw new Error('Failed to fetch movie from API');
+                const movie = await response.json();
+                
                 const formattedMovie = {
                     id: movie.id,
                     title: movie.title,
-                    poster_path: movie.poster_path,
                     release_date: movie.release_date,
                     vote_average: movie.vote_average,
-                    genres: typeof movie.genres === 'string' ? movie.genres.split(',').map(g => ({ name: g.trim() })) : [],
+                    genres: movie.genres || [],
                     overview: movie.overview || '',
-                    runtime: movie.runtime || null
+                    runtime: movie.runtime || null,
+                    poster_path: movie.poster_path || './images/posters/movie-logo2.png'
                 };
                 displayMovieDetails(formattedMovie);
             } catch (error) {
@@ -190,77 +204,23 @@
         }
 
         function displayMovieDetails(movie) {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            const isAdmin = user && user.role === 'admin';
             const movieDetails = document.getElementById('movie-details');
             movieDetails.innerHTML = `
                 <div class="movie-details">
-                    <img src="${movie.poster_path ? IMAGE_BASE_URL + movie.poster_path : 'https://via.placeholder.com/500x750?text=No+Poster'}" alt="${movie.title}">
+                    <img src="${movie.poster_path || './images/posters/movie-logo2.png'}" alt="${movie.title || 'Movie Poster'}" class="movie-poster" onerror="this.src='./images/posters/default_poster.jpg'">
                     <div class="info">
-                        <input type="text" class="title" value="${movie.title || 'N/A'}" placeholder="Enter movie title">
-                        <textarea class="overview" placeholder="Enter movie overview">${movie.overview || ''}</textarea>
-                        <input type="text" class="field" value="${movie.release_date || 'N/A'}" placeholder="Enter release date">
-                        <input type="text" class="field" value="${movie.vote_average ? movie.vote_average.toFixed(1) + '/10' : 'N/A'}" placeholder="Enter rating">
-                        <input type="text" class="field" value="${movie.runtime ? movie.runtime + ' minutes' : 'N/A'}" placeholder="Enter runtime">
-                        <input type="text" class="field" value="${movie.genres && movie.genres.length ? movie.genres.map(g => g.name).join(', ') : 'N/A'}" placeholder="Enter genres">
-                        <button class="save-btn" onclick="saveMovie(${movie.id})">Save Changes</button>
+                        <h1>${movie.title || 'N/A'}</h1>
+                        <p><strong>Overview:</strong> ${movie.overview || 'N/A'}</p>
+                        <p><strong>Release Date:</strong> ${movie.release_date || 'N/A'}</p>
+                        <p><strong>Rating:</strong> ${movie.vote_average ? movie.vote_average.toFixed(1) + '/10' : 'N/A'}</p>
+                        <p><strong>Runtime:</strong> ${movie.runtime ? movie.runtime + ' minutes' : 'N/A'}</p>
+                        <p><strong>Genres:</strong> ${movie.genres && movie.genres.length ? movie.genres.map(g => g.name).join(', ') : 'N/A'}</p>
+                        ${isAdmin ? `<a href="edit-movie.html?id=${movie.id}" class="edit-btn">Edit Movie</a>` : ''}
                     </div>
                 </div>
             `;
-        }
-
-        async function saveMovie(movieId) {
-            const title = document.querySelector('.title').value.trim();
-            const overview = document.querySelector('.overview').value.trim();
-            const release_date = document.querySelectorAll('.field')[0].value.trim();
-            const vote_average = document.querySelectorAll('.field')[1].value.replace('/10', '').trim();
-            const runtime = document.querySelectorAll('.field')[2].value.replace(' minutes', '').trim();
-            const genres = document.querySelectorAll('.field')[3].value.trim();
-
-            if (!title) {
-                alert('Movie title is required.');
-                return;
-            }
-            if (vote_average !== 'N/A' && (isNaN(vote_average) || vote_average < 0 || vote_average > 10)) {
-                alert('Rating must be a number between 0 and 10.');
-                return;
-            }
-            if (runtime !== 'N/A' && (isNaN(runtime) || runtime < 0)) {
-                alert('Runtime must be a positive number.');
-                return;
-            }
-            if (release_date !== 'N/A' && !/^\d{4}-\d{2}-\d{2}$/.test(release_date)) {
-                alert('Release date must be in YYYY-MM-DD format.');
-                return;
-            }
-
-            const updatedMovie = {
-                id: movieId,
-                title,
-                overview,
-                release_date: release_date !== 'N/A' ? release_date : null,
-                vote_average: vote_average !== 'N/A' ? parseFloat(vote_average) : null,
-                runtime: runtime !== 'N/A' ? parseInt(runtime) : null,
-                genres: genres !== 'N/A' ? genres.split(',').map(g => ({ name: g.trim() })) : [],
-                poster_path: document.querySelector('img').src.includes('placeholder') ? null : document.querySelector('img').src.replace(IMAGE_BASE_URL, '')
-            };
-
-            try {
-                const response = await fetch(`http://localhost:8000/movies/${movieId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedMovie)
-                });
-                if (!response.ok) throw new Error('Failed to update movie in API');
-                const userAddedMovies = JSON.parse(sessionStorage.getItem('userAddedMovies')) || {};
-                userAddedMovies[movieId] = updatedMovie;
-                sessionStorage.setItem('userAddedMovies', JSON.stringify(userAddedMovies));
-                alert('Movie updated successfully.');
-            } catch (error) {
-                console.error('Error saving movie:', error);
-                const userAddedMovies = JSON.parse(sessionStorage.getItem('userAddedMovies')) || {};
-                userAddedMovies[movieId] = updatedMovie;
-                sessionStorage.setItem('userAddedMovies', JSON.stringify(userAddedMovies));
-                alert('Changes saved locally (API unavailable).');
-            }
         }
 
         fetchMovieDetails();
